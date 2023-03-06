@@ -1,5 +1,5 @@
 ## 
-# Makefile for the Arduino Uno SMD feauturing the ATmega328P microcontroller.
+# Makefile for the Arduino SMD feauturing the ATmega328P microcontroller.
 #
 # Notes for Makefile Noobs:
 #
@@ -16,6 +16,17 @@
 # specify compiler
 CC = avr-gcc
 
+# specify programmer
+PROGRAMMER = arduino
+
+# overrideing baudrate
+# BAUDRATE = 57600		# Arduino Nano
+BAUDRATE = 115200		# Arduino Uno
+
+
+# define mcu
+MCU_MODEL = ATmega328P
+
 # define compiler flags
 CFLAGS ?= -Os -DF_APU=16000000UL -mmcu=atmega328p -Wall -Wextra -Werror -std=c99
 
@@ -23,8 +34,8 @@ CFLAGS ?= -Os -DF_APU=16000000UL -mmcu=atmega328p -Wall -Wextra -Werror -std=c99
 LDFLAGS ?= -mmcu=atmega328p
 
 # define USB path to Arduino
-ARDUINO_USB ?= /dev/ttyACM0
-#ARDUINO_USB ?= /dev/ttyUSB0
+#ARDUINO_USB ?= /dev/ttyACM0
+ARDUINO_USB ?= /dev/ttyUSB0
 
 
 # final hexfile that can be flashed
@@ -49,7 +60,7 @@ hal/pin.o: hal/pin.c hal/pin.h
 
 upload: main.hex
 	@echo "flashing hex file to microcontroller .."
-	avrdude -F -V -c arduino -p ATMEGA328p -P ${ARDUINO_USB} -b 115200 -U flash:w:main.hex  
+	avrdude -F -V -c ${PROGRAMMER} -p ${MCU_MODEL} -P ${ARDUINO_USB} -b ${BAUDRATE} -U flash:w:main.hex  
 
 clean:
 	@echo "cleaning up .."

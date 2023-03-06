@@ -25,7 +25,8 @@ clean Up
 
 
 ## How to set up the AVR toolchain
-NOTE: make sure arduino driver is installed (e.g. by installing the Arduino IDE)
+NOTE: make sure arduino driver is installed 
+```sudo apt install arduino```
 
 check distribution:
 ```cat /etc/*-release | grep PRETTY_NAME```
