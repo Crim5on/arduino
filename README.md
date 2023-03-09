@@ -25,7 +25,7 @@ clean Up
 
 
 ## How to set up the AVR toolchain
-NOTE: make sure arduino driver is installed 
+make sure arduino driver is installed 
 ```sudo apt install arduino```
 
 check distribution:
@@ -37,5 +37,10 @@ under Ubuntu / Debian:
 under Fedora / Red Hat:
 ```sudo dnf install -y avr-gcc avr-binutils avr-libc avrdude make```
 
-
+## Find port on which Arduino is connected to
+```sudo dmesg``` 
+plug USB device in and rund cmd again
+```sudo dmesg``` 
+check for the last entry to find something like this:
+```[16208.532075] usb 1-1: New USB device found, idVendor=1a86, idProduct=7523, bcdDevice= 2.54``
 

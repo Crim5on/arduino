@@ -24,22 +24,6 @@ static inline bool isOnPortD(const ArduinoPin pin){
     return (pin >= 0 && pin <= 7);
 }
 
-static inline bool pinIsSetAsInput(const uint8_t pin)
-{
-    if(isOnPortB(pin)){
-        return BIT_IS_SET(DDRB, (pin - OFFSET_PORT_B));
-    } 
-    else if(isOnPortC(pin)){
-        return BIT_IS_SET(DDRC, (pin - OFFSET_PORT_C));
-    } 
-    else if(isOnPortD(pin)){
-        return BIT_IS_SET(DDRD, (pin - OFFSET_PORT_D));
-    }
-    else{
-        return false; // return false for wrong pin
-    }
-}
-
 
 void setPinMode(const uint8_t pin, const Mode mode)
 {
@@ -70,16 +54,19 @@ void setPinMode(const uint8_t pin, const Mode mode)
 }
 
 
-bool digitalRead(const uint8_t pin)
+int8_t digitalRead(const uint8_t pin)
 {
     if(isOnPortB(pin)){
         return BIT_IS_SET(PINB, (pin - OFFSET_PORT_B));
+    }
+    else if (isOnPortC(pin)){
+        return BIT_IS_SET(PINC, (pin - OFFSET_PORT_C));
     }
     else if(isOnPortD(pin)){
         return BIT_IS_SET(PIND, (pin - OFFSET_PORT_D));
     }
     else{
-        return false; // return false for wrong pin
+        return -1; // for wrong pin
     }
 }
 
@@ -94,6 +81,14 @@ void digitalWrite(const uint8_t pin, const bool value)
             BIT_CLR(PORTB, (pin - OFFSET_PORT_B));
         }
     }
+    else if(isOnPortC(pin)){
+        if(value == HIGH){
+            BIT_SET(PORTC, (pin - OFFSET_PORT_C));
+        }
+        else if(value == LOW){
+            BIT_CLR(PORTC, (pin - OFFSET_PORT_C));
+        }
+    }
     else if(isOnPortD(pin)){
         if(value == HIGH){
             BIT_SET(PORTD, (pin - OFFSET_PORT_D));
@@ -105,16 +100,28 @@ void digitalWrite(const uint8_t pin, const bool value)
 }
 
 
-void setPullUpResistor(uint8_t pin, const bool enable)
+int8_t pinIsSetAsInput(const uint8_t pin)
 {
-    // NOTE: pull-up can be enabled by writting a logical 1 to the PORT register of an as input defined pin.
-    if(!pinIsSetAsInput(pin)){
-        return; // do nothing.
-    }
-    if(enable){
-        digitalWrite(pin, HIGH);
+    // negated because 'bit not set' means input. ;)
+    if(isOnPortB(pin)){
+        return !BIT_IS_SET(DDRB, (pin - OFFSET_PORT_B));
+    } 
+    else if(isOnPortC(pin)){
+        return !BIT_IS_SET(DDRC, (pin - OFFSET_PORT_C));
+    } 
+    else if(isOnPortD(pin)){
+        return !BIT_IS_SET(DDRD, (pin - OFFSET_PORT_D));
     }
     else{
-        digitalWrite(pin, LOW);
+        return -1;  // for wrong pin
+    }
+}
+
+
+void setPullUpResistor(const uint8_t pin, const bool enable)
+{
+    // NOTE: pull-up can be enabled by writting a logical 1 to the PORT register of an as input defined pin.
+    if(pinIsSetAsInput(pin)){
+        digitalWrite(pin, enable);
     }
 }

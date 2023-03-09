@@ -20,36 +20,38 @@ typedef enum {
 
 typedef enum {
 //  Arduino         ATmega
-    DI0_RX,         // PD0
-    DI1_TX,         // PD1
-    // Digital I/O Pins
-    DI2,            // PD2
-    DI3_PWM,        // PD3
-    DI4,            // PD4
-    DI5_PWM,        // PD5
-    DI6_PWM,        // PD6
-    DI7,            // PD7
-    // - - - 
-    DI8,            // PB0
-    DI9_PWM,        // PB1
-    DI10_PWM,       // PB2
-    DI11_PWM,       // PB3
-    DI12,           // PB4
-    DI13_LED,       // PB5
-    // Analog Input Pins
-    AI0,            // PC0
-    AI1,            // PC1
-    AI2,            // PC2
-    AI3,            // PC3
-    AI4,            // PC4
-    AI5             // PC5
+    // port D
+    D0,             // PD0
+    D1,             // PD1
+    D2,             // PD2
+    D3,             // PD3
+    D4,             // PD4
+    D5,             // PD5
+    D6,             // PD6
+    D7,             // PD7
+    // port B 
+    D8,             // PB0
+    D9,             // PB1
+    D10,            // PB2
+    D11,            // PB3
+    D12,            // PB4
+    D13,            // PB5
+    // port C
+    A0,             // PC0
+    A1,             // PC1
+    A2,             // PC2
+    A3,             // PC3
+    A4,             // PC4
+    A5              // PC5
 } ArduinoPin;
 
 
-void setPinMode(uint8_t pin, Mode mode);
+void setPinMode(const uint8_t pin, const Mode mode);
 
-void digitalWrite(uint8_t pin, bool value);
+void digitalWrite(const uint8_t pin, const bool value);
 
-bool digitalRead(uint8_t pin);
+int8_t digitalRead(const uint8_t pin);
 
-void setPullUpResistor(uint8_t pin, bool enable);
+int8_t pinIsSetAsInput(const uint8_t pin);
+
+void setPullUpResistor(const uint8_t pin, const bool enable);

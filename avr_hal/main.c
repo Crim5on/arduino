@@ -5,15 +5,15 @@
 
 void setup(void)
 {
-    setPinMode(DI13_LED, OUTPUT);
+    setPinMode(D13, OUTPUT);
 }
 
 
 void loop(void)
 {
-    digitalWrite(DI13_LED, HIGH);
+    digitalWrite(D13, HIGH);
     _delay_ms(100);
-    digitalWrite(DI13_LED, LOW);
+    digitalWrite(D13, LOW);
     _delay_ms(1500);
 }
 
