@@ -43,7 +43,7 @@ under Fedora / Red Hat:
 
 ```sudo dmesg``` 
 
-plug USB device in and rund cmd again 
+plug USB device in and run cmd again 
 
 ```sudo dmesg``` 
 
