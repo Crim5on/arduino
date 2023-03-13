@@ -34,6 +34,11 @@ void setPinMode(const uint8_t pin, const Mode mode)
         else if(mode == INPUT){
             BIT_CLR(DDRB, (pin - OFFSET_PORT_B));
         }
+        else if(mode == INPUT_PULLUP){
+            // enable pull-up by writting a logical 1 to the PORT register of an as input defined pin.
+            BIT_CLR(DDRB, (pin - OFFSET_PORT_B));
+            BIT_SET(PORTB, (pin - OFFSET_PORT_B));
+        }
     } 
     else if(isOnPortC(pin)){
         if(mode == OUTPUT){
@@ -42,6 +47,11 @@ void setPinMode(const uint8_t pin, const Mode mode)
         else if(mode == INPUT){
             BIT_CLR(DDRC, (pin - OFFSET_PORT_C));
         }
+        else if(mode == INPUT_PULLUP){
+            // enable pull-up by writting a logical 1 to the PORT register of an as input defined pin.
+            BIT_CLR(DDRC, (pin - OFFSET_PORT_C));
+            BIT_SET(PORTC, (pin - OFFSET_PORT_C));
+        }
     } 
     else if(isOnPortD(pin)){
         if(mode == OUTPUT){
@@ -49,6 +59,11 @@ void setPinMode(const uint8_t pin, const Mode mode)
         }
         else if(mode == INPUT){
             BIT_CLR(DDRD, (pin - OFFSET_PORT_D));
+        }
+        else if(mode == INPUT_PULLUP){
+            // enable pull-up by writting a logical 1 to the PORT register of an as input defined pin.
+            BIT_CLR(DDRD, (pin - OFFSET_PORT_D));
+            BIT_SET(PORTD, (pin - OFFSET_PORT_D));
         }
     }
 }
@@ -114,14 +129,5 @@ int8_t pinIsSetAsInput(const uint8_t pin)
     }
     else{
         return -1;  // for wrong pin
-    }
-}
-
-
-void setPullUpResistor(const uint8_t pin, const bool enable)
-{
-    // NOTE: pull-up can be enabled by writting a logical 1 to the PORT register of an as input defined pin.
-    if(pinIsSetAsInput(pin)){
-        digitalWrite(pin, enable);
     }
 }

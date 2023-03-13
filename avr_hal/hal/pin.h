@@ -14,6 +14,7 @@
 typedef enum {
     INPUT,
     OUTPUT,
+    INPUT_PULLUP,
     PWM_OUTPUT
 } Mode;
 
@@ -53,5 +54,3 @@ void digitalWrite(const uint8_t pin, const bool value);
 int8_t digitalRead(const uint8_t pin);
 
 int8_t pinIsSetAsInput(const uint8_t pin);
-
-void setPullUpResistor(const uint8_t pin, const bool enable);
