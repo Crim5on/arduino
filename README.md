@@ -37,10 +37,17 @@ under Ubuntu / Debian:
 under Fedora / Red Hat:
 ```sudo dnf install -y avr-gcc avr-binutils avr-libc avrdude make```
 
-## Find port on which Arduino is connected to 
+
+
+## Find Arduino Port 
+
 ```sudo dmesg``` 
+
 plug USB device in and rund cmd again 
+
 ```sudo dmesg``` 
+
 check for the last entry to find something like this: 
+
 ```[16208.532075] usb 1-1: New USB device found, idVendor=1a86, idProduct=7523, bcdDevice= 2.54```
 
